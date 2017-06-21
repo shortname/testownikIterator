@@ -1,22 +1,38 @@
 package testownikiterator.data;
 
+import testownikiterator.core.FileLoader;
+
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Item {
     public String string;
     public BufferedImage image;
     
-    public Item(String string){
+    private Item(String string){
         this.string = string;
         image = null;
     }
     
-    public Item(BufferedImage image){
+    private Item(BufferedImage image){
         this.image = image;
         string = null;
     }
-    
+
+    public static Item fromLine(String line) throws IOException {
+        Item q;
+        if(line.startsWith("[img]") && line.endsWith("[/img]")){
+            line = line.replace("[img]", "");
+            line = line.replace("[/img]", "");
+            System.err.println(line);
+            q = new Item(FileLoader.loadImage(line));
+        }else{
+            q = new Item(line);
+        }
+        return q;
+    }
+
     public JPanel show(){
         if(string != null){
             JPanel jp = new JPanel();
@@ -27,7 +43,7 @@ public class Item {
         return null;
     }
     
-    public JLabel list(){
+    public JLabel toLabel(){
         JLabel ret;
         if(string != null){
             ret = new JLabel(string);
