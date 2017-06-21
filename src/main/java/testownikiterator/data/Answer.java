@@ -1,4 +1,6 @@
-import javax.swing.JComponent;
+package testownikiterator.data;
+
+import javax.swing.*;
 
 public class Answer {
     private Item content;

@@ -1,3 +1,11 @@
+package testownikiterator.gui;
+
+import testownikiterator.data.Answer;
+import testownikiterator.data.Item;
+import testownikiterator.data.Question;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,9 +14,8 @@ import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GUI extends JFrame{
     private GridLayout gl;
@@ -165,11 +172,5 @@ public class GUI extends JFrame{
         CardLayout cl = (CardLayout) allAll.getLayout();
         cl.last(allAll);
     }
-    
-    public static void main(String[] args) {
-        int num = 1;
-        GUI gui = new GUI(num);
-        gui.load();
-        gui.show(num);
-    }
+
 }
