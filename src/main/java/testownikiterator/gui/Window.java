@@ -18,35 +18,36 @@ public class Window extends EmptyWindow {
     public Window(List<Question> questions) {
         num = 1;
         this.questions = questions;
-        buttonsPanel = new ButtonsPanel(this::previous, this::show, this::next);
+        buttonsPanel = new ButtonsPanel(this::previousHandler, this::showHandler, this::nextHandler);
         questionsCombo = new QuestionsCombo(questions.stream().map(Question::content).collect(Collectors.toList()), this::select);
         answersPanel = new AnswersPanel();
         add(questionsCombo);
         add(answersPanel);
         add(buttonsPanel);
+        showQuestion(num, false);
         setVisible(true);
     }
 
-    private void show(ActionEvent event) {
-        show(num, true);
+    private void showHandler(ActionEvent event) {
+        showQuestion(num, true);
     }
 
-    private void next(ActionEvent event) {
+    private void nextHandler(ActionEvent event) {
         questionsCombo.setSelectedIndex(++num);
-        show(num, false);
+        showQuestion(num, false);
     }
 
-    private void previous(ActionEvent event) {
+    private void previousHandler(ActionEvent event) {
         questionsCombo.setSelectedIndex(--num);
-        show(num, false);
+        showQuestion(num, false);
     }
 
     private void select(ItemEvent e) {
         num = questionsCombo.getSelectedIndex() + 1;
-        show(num, false);
+        showQuestion(num, false);
     }
 
-    private void show(int i, boolean showAnswer) {
+    private void showQuestion(int i, boolean showAnswer) {
         answersPanel.showAnswers(questions.get(i - 1), showAnswer);
         updatePreviousButton(i);
         updateNextButton(i);
